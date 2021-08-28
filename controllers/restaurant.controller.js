@@ -1,14 +1,14 @@
 const Restaurant = require('../models/Restaurant');
 const ErrorResponse = require('../utils/errorResponse');
 
-// @desc   Register user
-// @route  POST /api/v1/auth/register
-// @access Public
+// @desc   Add a restaurant
+// @route  POST /api/v1/restaurant/
+// @access Private
 exports.addRestaurant = async (req, res, next) => {
   const {name, location, minPrice} = req.body;
 
   try {
-    // Create user
+    // Create restaurant
     const restaurant = await Restaurant.create({
       name,
       location,
@@ -24,9 +24,9 @@ exports.addRestaurant = async (req, res, next) => {
   }
 };
 
-// @desc   Register user
-// @route  POST /api/v1/auth/register
-// @access Public
+// @desc   Fetch all restaurant
+// @route  GET /api/v1/restaurant/
+// @access Private
 exports.getRestaurant = async (req, res, next) => {
   try {
     let restaurants;
@@ -55,9 +55,9 @@ exports.getRestaurant = async (req, res, next) => {
   }
 };
 
-// @desc   Register user
-// @route  POST /api/v1/auth/register
-// @access Public
+// @desc   Fetch restaurant by ID
+// @route  GET /api/v1/restaurant/
+// @access Private
 exports.getRestaurantById = async (req, res, next) => {
   try {
     const {id} = req.params;
