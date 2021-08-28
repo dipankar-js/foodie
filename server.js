@@ -20,9 +20,11 @@ connectDB();
 
 // Route files
 const auth = require('./routes/auth.route');
+const restaurant = require('./routes/restaurant.route');
 
 // Mount routes
 app.use('/api/v1/auth', auth);
+app.use('/api/v1/restaurant', restaurant);
 
 app.use(errorHandler);
 
