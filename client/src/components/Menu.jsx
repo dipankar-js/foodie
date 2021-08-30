@@ -3,10 +3,16 @@ import axios from 'axios';
 import {useQuery} from 'react-query';
 import Cousin from './Cousin';
 import SearchBar from './SearchBar';
+import Cookies from 'js-cookie';
 
 const fetchCousins = async (restaurantId) => {
   const result = await axios.get(
     `http://localhost:5000/api/v1/cousin/restaurant/${restaurantId}`,
+    {
+      headers: {
+        Authorization: `Bearer ${Cookies.get('token')}`,
+      },
+    },
   );
   return result.data;
 };
@@ -30,6 +36,11 @@ const Menu = (props) => {
   const onSort = async () => {
     const result = await axios.get(
       `http://localhost:5000/api/v1/cousin/restaurant/${restaurantId}?sort=-1`,
+      {
+        headers: {
+          Authorization: `Bearer ${Cookies.get('token')}`,
+        },
+      },
     );
     setCousins(result.data.data);
   };
@@ -46,6 +57,11 @@ const Menu = (props) => {
     try {
       const results = await axios.get(
         `http://localhost:5000/api/v1/cousin/restaurant/${restaurantId}?searchQuery=${searchTerm}`,
+        {
+          headers: {
+            Authorization: `Bearer ${Cookies.get('token')}`,
+          },
+        },
         {cancelToken: cancelToken.token},
       );
       setCousins(results.data.data);
@@ -94,7 +110,7 @@ const Menu = (props) => {
               </div>
             ))
           ) : (
-            <p> No Items found</p>
+            <p className="text-center"> No Items found</p>
           )}
         </div>
       </div>

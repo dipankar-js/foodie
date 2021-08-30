@@ -3,9 +3,14 @@ import axios from 'axios';
 import {useQuery} from 'react-query';
 import Card from './Card';
 import SearchBar from './SearchBar';
+import Cookies from 'js-cookie';
 
 const fetchRestaurants = async () => {
-  const {data} = await axios.get(`http://localhost:5000/api/v1/restaurant`);
+  const {data} = await axios.get(`http://localhost:5000/api/v1/restaurant`, {
+    headers: {
+      Authorization: `Bearer ${Cookies.get('token')}`,
+    },
+  });
   return data;
 };
 function Restaurant() {
@@ -22,6 +27,11 @@ function Restaurant() {
     console.log('sorting');
     const result = await axios.get(
       `http://localhost:5000/api/v1/restaurant?sort=-1`,
+      {
+        headers: {
+          Authorization: `Bearer ${Cookies.get('token')}`,
+        },
+      },
     );
     setRestaurants(result.data.data);
   };
@@ -39,6 +49,11 @@ function Restaurant() {
     try {
       const results = await axios.get(
         `http://localhost:5000/api/v1/restaurant?searchQuery=${searchTerm}`,
+        {
+          headers: {
+            Authorization: `Bearer ${Cookies.get('token')}`,
+          },
+        },
         {cancelToken: cancelToken.token},
       );
       setRestaurants(results.data.data);

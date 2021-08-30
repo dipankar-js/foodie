@@ -5,7 +5,7 @@ const {protect} = require('../middleware/auth');
 const router = express.Router();
 
 // protected routes
-// router.use(protect);
+router.use(protect);
 
 router.post('/', addRestaurant);
 router.get('/', getRestaurant);
