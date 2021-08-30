@@ -45,7 +45,7 @@ exports.getCousin = async (req, res, next) => {
     }
 
     if (!cousins) {
-      cousins = await Cousin.find().populate('restaurant');
+      cousins = await Cousin.find({}).populate('restaurant');
     }
 
     res.status(200).json({
@@ -62,7 +62,22 @@ exports.getCousin = async (req, res, next) => {
 // @access Private
 exports.getCousinByRestaurantId = async (req, res, next) => {
   try {
-    const cousins = await Cousin.find({restaurant: req.params.restaurantId});
+    let cousins;
+
+    // Sorting by price
+    if (req.query.sort) {
+      cousins = await Cousin.find({restaurant: req.params.restaurantId}).sort({price: req.query.sort}).populate('restaurant');
+    }
+
+    // Search By Name/Category
+    if (req.query.searchQuery) {
+      let regex = new RegExp(req.query.searchQuery, 'i');
+      cousins = await Cousin.find({$and: [{restaurant: req.params.restaurantId}, {$or: [{name: regex}, {category: regex}]}]});
+    }
+
+    if (!cousins) {
+      cousins = await Cousin.find({restaurant: req.params.restaurantId}).populate('restaurant');
+    }
 
     res.status(200).json({
       success: true,

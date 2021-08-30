@@ -14,6 +14,9 @@ const RestaurantSchema = new mongoose.Schema({
     index: true,
     required: [true, 'Please add a minimum price for the Restaurant'],
   },
+  photo: {
+    type: String,
+  },
   createdAt: {
     type: Date,
     default: Date.now,

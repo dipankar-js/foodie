@@ -5,7 +5,7 @@ const ErrorResponse = require('../utils/errorResponse');
 // @route  POST /api/v1/restaurant/
 // @access Private
 exports.addRestaurant = async (req, res, next) => {
-  const {name, location, minPrice} = req.body;
+  const {name, location, minPrice, photo} = req.body;
 
   try {
     // Create restaurant
@@ -13,6 +13,7 @@ exports.addRestaurant = async (req, res, next) => {
       name,
       location,
       minPrice,
+      photo,
     });
 
     res.status(200).json({
@@ -43,7 +44,7 @@ exports.getRestaurant = async (req, res, next) => {
     }
 
     if (!restaurants) {
-      restaurants = await Restaurant.find();
+      restaurants = await Restaurant.find({});
     }
 
     res.status(200).json({

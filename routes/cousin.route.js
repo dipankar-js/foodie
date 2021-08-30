@@ -5,10 +5,10 @@ const {protect} = require('../middleware/auth');
 const router = express.Router();
 
 // protected routes
-router.use(protect);
+// router.use(protect);
 
 router.post('/', addCousin);
 router.get('/', getCousin);
-router.get('/:restaurantId', getCousinByRestaurantId);
+router.get('/restaurant/:restaurantId', getCousinByRestaurantId);
 
 module.exports = router;

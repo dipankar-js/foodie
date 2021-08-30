@@ -1,6 +1,7 @@
 const express = require('express');
 const dotenv = require('dotenv');
 const cookieParser = require('cookie-parser');
+const cors = require('cors');
 
 const connectDB = require('./config/db');
 const errorHandler = require('./middleware/errorHandler');
@@ -8,6 +9,9 @@ const errorHandler = require('./middleware/errorHandler');
 dotenv.config();
 
 const app = express();
+
+// cors
+app.use(cors());
 
 // Body parser
 app.use(express.json());
